@@ -39,7 +39,37 @@ const createModel = () => {
     },{});
   };
 
-  return { fit, estimate, loadParams, saveParams, saveExpressions, expressions };
+  const estimateX = y => {
+    const [ c, b, a ] = params[2];
+  
+    c -= y;
+  
+    if (a === 0) {
+      if (b === 0) {
+        return [];
+      } else {
+        return [ -c / b ];
+      }
+    }
+  
+    const d = b * b - 4 * a * c;
+  
+    if (d < 0) {
+      return [];
+    }
+  
+    if (d === 0) {
+      const r = -0.5 * b / a;
+  
+      return [ r, r ];
+    }
+  
+    const q = -0.5 * (b + Math.sign(b) * Math.sqrt(d));
+  
+    return [ q / a, c / q ];
+  };
+
+  return { fit, estimate, loadParams, saveParams, saveExpressions, expressions, estimateX };
 };
 
 module.exports = {
