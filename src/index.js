@@ -66,7 +66,7 @@ const createModel = () => {
   
     const q = -0.5 * (b + Math.sign(b) * Math.sqrt(d));
   
-    return [ q / a, c / q ];
+    return Math.max(q / a, c / q);
   };
 
   return { fit, estimate, loadParams, saveParams, saveExpressions, expressions, estimateX };
