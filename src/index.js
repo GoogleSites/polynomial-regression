@@ -40,7 +40,7 @@ const createModel = () => {
   };
 
   const estimateX = y => {
-    const [ c, b, a ] = params[2];
+    let [ c, b, a ] = params[2];
   
     c -= y;
   
