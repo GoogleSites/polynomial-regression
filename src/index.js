@@ -46,7 +46,7 @@ const createModel = () => {
   
     if (a === 0) {
       if (b === 0) {
-        return [];
+        return null;
       } else {
         return [ -c / b ];
       }
@@ -55,7 +55,7 @@ const createModel = () => {
     const d = b * b - 4 * a * c;
   
     if (d < 0) {
-      return [];
+      return null;
     }
   
     if (d === 0) {
