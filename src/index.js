@@ -77,7 +77,7 @@ const createModel = () => {
 
     const [ a, b ] = params[1];
 
-    return y / (a + b);
+    return (y - a) / b;
   };
 
   return { fit, estimate, loadParams, saveParams, saveExpressions, expressions, estimateX, getParams };
