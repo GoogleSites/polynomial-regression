@@ -39,38 +39,48 @@ const createModel = () => {
     },{});
   };
 
-  const estimateX = y => {
-    let [ c, b, a ] = params[2];
+  const getParams = degree => {
+    return params[degree];
+  }
+
+  const estimateX = (degree, y) => {
+    if (degree === 2) {
+      let [ c, b, a ] = params[2];
   
-    c -= y;
-  
-    if (a === 0) {
-      if (b === 0) {
-        return null;
-      } else {
-        return [ -c / b ];
-      }
-    }
-  
-    const d = b * b - 4 * a * c;
-  
-    if (d < 0) {
-      return null;
-    }
-  
-    if (d === 0) {
-      const r = -0.5 * b / a;
-  
-      return [ r, r ];
-    }
-  
-    const q = -0.5 * (b + Math.sign(b) * Math.sqrt(d));
-    const one = q / a, two = c / q;
+      c -= y;
     
-    return one > 0 && two > 0 ? Math.min(one, two) : one <= 0 ? two : one;
+      if (a === 0) {
+        if (b === 0) {
+          return null;
+        } else {
+          return [ -c / b ];
+        }
+      }
+    
+      const d = b * b - 4 * a * c;
+    
+      if (d < 0) {
+        return null;
+      }
+    
+      if (d === 0) {
+        const r = -0.5 * b / a;
+    
+        return [ r, r ];
+      }
+    
+      const q = -0.5 * (b + Math.sign(b) * Math.sqrt(d));
+      const one = q / a, two = c / q;
+      
+      return one > 0 && two > 0 ? Math.min(one, two) : one <= 0 ? two : one;
+    }
+
+    const [ a, b ] = params[1];
+
+    return y / (a + b);
   };
 
-  return { fit, estimate, loadParams, saveParams, saveExpressions, expressions, estimateX };
+  return { fit, estimate, loadParams, saveParams, saveExpressions, expressions, estimateX, getParams };
 };
 
 module.exports = {
